@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empório D'angola | Restaurante e Café</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="img/logo.jpg">
+    <style>
+        /* NOVA PALETA DE CORES - Comida caseira e aconchegante */
+        :root {
+            --primary-color: #8B4513; /* Marrom terroso - cor principal */
+            --secondary-color: #D2691E; /* Laranja terracota */
+            --accent-color: #F4A460; /* Marrom claro areia */
+            --light-color: #FFF8DC; /* Branco amarelado (cor de papel envelhecido) */
+            --dark-color: #5D4037; /* Marrom escuro para texto */
+            --medium-color: #A0522D;
+            --gray-color: #8D6E63;
+            --light-gray: #E0C9B8;
+            --background-color: #FFF8DC;
+            --text-color: #5D4037;
+            --card-bg: #FFFFFF;
+            --shadow-color: rgba(139, 69, 19, 0.1);
+        }
+
+        /* Modo escuro com nova paleta */
+        body.dark-mode {
+            --primary-color: #D2691E;
+            --secondary-color: #F4A460;
+            --accent-color: #FFD8B1;
+            --light-color: #2E1B0C;
+            --dark-color: #E0C9B8;
+            --medium-color: #A0522D;
+            --gray-color: #8D6E63;
+            --light-gray: #4E342E;
+            --background-color: #2E1B0C;
+            --text-color: #E0C9B8;
+            --card-bg: #3E2723;
+            --shadow-color: rgba(0, 0, 0, 0.4);
+        }
+
+        /* Estilos específicos para o Empório D'angola */
+        .logo-name {
+            color: var(--primary-color);
+            font-family: 'Playfair Display', cursive;
+        }
+
+        .logo-subtitle {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        .hero-highlight {
+            color: var(--primary-color);
+        }
+
+        .highlight {
+            color: var(--primary-color);
+        }
+
+        /* Botão pedir online - ajustado para nova paleta */
+        .order-online-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+
+        .order-online-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(139, 69, 19, 0.3);
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        }
+
+        /* Tags de serviços */
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .service-tag {
+            background-color: rgba(139, 69, 19, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(139, 69, 19, 0.2);
+        }
+
+        .entrepreneur-tag {
+            background-color: rgba(210, 105, 30, 0.1);
+            color: var(--secondary-color);
+            border-color: rgba(210, 105, 30, 0.3);
+        }
+
+        /* Ajustes para imagens mais caseiras */
+        .menu-card-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .menu-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .menu-card:hover .menu-card-img img {
+            transform: scale(1.05);
+        }
+
+        /* Efeito de papel envelhecido para cards */
+        .menu-card, .review-card, .info-card {
+            border: 1px solid var(--light-gray);
+            background-color: var(--card-bg);
+        }
+
+        /* Estilo para a seção hero com fundo texturizado */
+        .hero {
+            background: linear-gradient(135deg, var(--background-color) 0%, #F5E6D3 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%238b4513' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Botão de tema com nova cor */
+        .theme-toggle button:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Ajuste nas estrelas de avaliação */
+        .rating-stars {
+            color: var(--secondary-color);
+        }
+
+        /* Status de horário */
+        .hours-status.open {
+            background-color: rgba(139, 69, 19, 0.1);
+            color: #2E7D32;
+            border-left: 4px solid #2E7D32;
+        }
+
+        .hours-status.closed {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: #C62828;
+            border-left: 4px solid #C62828;
+        }
+
+        /* Footer ajustado */
+        .footer {
+            background-color: var(--dark-color);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-social a:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Botão do WhatsApp */
+        .whatsapp-float {
+            background-color: #25D366;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #128C7E;
+        }
+    </style>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Botão de alternância modo claro/escuro -->
+    <div class="theme-toggle">
+        <button id="themeToggle" aria-label="Alternar tema">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <!-- Cabeçalho fixo com menu -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#home" class="logo">
+                    <div class="logo-container">
+                        <!-- LOGO DO EMPÓRIO D'ANGOLA -->
+                        <div class="restaurant-logo">
+                            <img src="img/logo.jpg" 
+                                 alt="Empório D'angola logo" id="restaurantLogo">
+                        </div>
+                        <div class="logo-text">
+                            <span class="logo-name">Empório D'angola</span>
+                            <span class="logo-subtitle">Restaurante e Café</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#home" class="nav-link">Visão Geral</a></li>
+                    <li class="nav-item"><a href="#menu" class="nav-link">Cardápio</a></li>
+                    <li class="nav-item"><a href="#reviews" class="nav-link">Avaliações</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link">Sobre</a></li>
+                    <li class="nav-item"><a href="#map" class="nav-link">Localização</a></li>
+                </ul>
+                
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Seção Home / Visão Geral -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content fade-in">
+                    <div class="hero-title-container">
+                        <h1 class="hero-title">Empório <span class="hero-highlight">D'angola</span></h1>
+                        <p class="hero-subtitle">Restaurante e Café • Comida caseira e aconchegante em Mogi das Cruzes</p>
+                    </div>
+                    
+                    <div class="restaurant-info">
+                        <div class="info-item">
+                            <i class="fas fa-star"></i>
+                            <div class="info-text">
+                                <span class="info-value">4,8</span>
+                                <span class="info-label">(411 avaliações)</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-utensils"></i>
+                            <div class="info-text">
+                                <span class="info-value">Restaurante</span>
+                                <span class="info-label">Categoria</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-wallet"></i>
+                            <!-- <div class="info-text">
+                                <span class="info-value">R$ 20–40</span>
+                                <span class="info-label">Faixa de preço</span>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <!-- Tags de serviços -->
+                    <div class="service-tags">
+                        <div class="service-tag">
+                            <i class="fas fa-utensils"></i> Refeição no local
+                        </div>
+                        <div class="service-tag">
+                            <i class="fas fa-door-open"></i> Retirada na porta
+                        </div>
+                        <!-- <div class="service-tag">
+                            <i class="fas fa-truck"></i> Entrega sem contato
+                        </div> -->
+                        <div class="service-tag entrepreneur-tag">
+                            <i class="fas fa-female"></i> Empresa de empreendedoras
+                        </div>
+                    </div>
+                    
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" id="routesBtn">
+                            <i class="fas fa-route"></i> Rotas
+                        </button>
+                        <button class="btn btn-secondary" id="saveBtn">
+                            <i class="far fa-bookmark"></i> Salvar
+                        </button>
+                        <button class="btn btn-outline" id="shareBtn">
+                            <i class="fas fa-share-alt"></i> Compartilhar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="hero-image slide-up">
+                    <div class="image-placeholder">
+                        <!-- IMAGEM DO RESTAURANTE -->
+                        <div class="restaurant-image">
+                            <img src="img/01.jpg" 
+                                 alt="Empório D'angola interior" id="restaurantImage">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Cardápio -->
+        <section id="menu" class="menu-section">
+            <div class="container">
+                <h2 class="section-title">Cardápio <span class="highlight">Caseiro</span></h2>
+                <p class="section-subtitle">Pratos feitos com amor e ingredientes selecionados</p>
+                
+                <div class="menu-categories">
+                    <button class="category-btn active" data-category="almoco">Almoço Executivo</button>
+                    <button class="category-btn" data-category="cafe">Café da Manhã</button>
+                    <button class="category-btn" data-category="lanches">Lanches</button>
+                    <button class="category-btn" data-category="bebidas">Bebidas</button>
+                </div>
+                
+                <div class="menu-items">
+                    <!-- Almoço Executivo -->
+                    <div class="menu-category active" id="almoco">
+                        <div class="menu-grid">
+                            <div class="menu-card">
+                                <div class="menu-card-img">
+                                    <img src="https://lirp.cdn-website.com/33406c6e/dms3rep/multi/opt/feijoada-1920w.jpg" alt="Feijoada Completa" loading="lazy">
+                                </div>
+                                <div class="menu-card-content">
+                                    <h3>Feijoada Completa</h3>
+                                    <p>Feijoada tradicional com todas as carnes, acompanha arroz, couve, farofa e laranja.</p>
+                                    <span class="price">R$ 35</span>
+                                </div>
+                            </div>
+                            
+                            <div class="menu-card">
+                                <div class="menu-card-img">
+                                    <img src="https://i0.wp.com/espetinhodesucesso.com/wp-content/uploads/2025/04/Como-fazer-frango-assado-no-forno.jpg?resize=800%2C450&ssl=1" alt="Frango Assado" loading="lazy">
+                                </div>
+                                <div class="menu-card-content">
+                                    <h3>Frango Assado</h3>
+                                    <p>Frango assado no forno com batatas e legumes, acompanha salada verde.</p>
+                                    <span class="price">R$ 28</span>
+                                </div>
+                            </div>
+                            
+                            <div class="menu-card">
+                                <div class="menu-card-img">
+                                    <img src="https://cdn.awsli.com.br/600x450/1332/1332885/produto/59243839/a99ebf1b31.jpg" alt="Marmitex Executivo" loading="lazy">
+                                </div>
+                                <div class="menu-card-content">
+                                    <h3>Marmitex Executivo</h3>
+                                    <p>Arroz, feijão, salada, batata frita e opção de carne (bovina, frango ou peixe).</p>
+                                    <span class="price">R$ 25</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Café da Manhã -->
+                    <div class="menu-category" id="cafe">
+                        <div class="menu-grid">
+                            <div class="menu-card">
+                                <div class="menu-card-img">
+                                    <img src="https://www.casadavovors.com.br/wp-content/uploads/2020/10/CASA-DA-VOV%C3%93-NOTICIAS-SITE-2-MAR%C3%87O-1000X600PX.png" alt="Café Colonial" loading="lazy">
+                                </div>
+                                <div class="menu-card-content">
+                                    <h3>Café Colonial</h3>
+                                    <p>Pães, bolos, frios, queijos, frutas, sucos e café à vontade.</p>
+                                    <span class="price">R$ 22</span>
+                                </div>
+                            </div>
+                            
+                            <div class="menu-card">
+                                <div class="menu-card-img">
+                                    <img src="https://guiadacozinha.com.br/wp-content/uploads/2019/11/tapioca-recheada-legumes-1.jpg" alt="Tapioca Recheada" loading="lazy">
+                                </div>
+                                <div class="menu-card-content">
+                                    <h3>Tapioca Recheada</h3>
+                                    <p>Tapioca com queijo coalho, coco ou carne seca.</p>
+                                    <span class="price">R$ 15</span>
+                                </div>
+                            </div>
+                            
+                            <div class="menu-card">
+                                <div class="menu-card-img">
+                                    <img src="https://guiadacozinha.com.br/wp-content/uploads/2018/03/omelete-de-liquidificador-1-350x230.jpg" alt="Omelete Completo" loading="lazy">
+                                </div>
+                                <div class="menu-card-content">
+                                    <h3>Omelete Completo</h3>
+                                    <p>Omelete com queijo, presunto, tomate e cebola, acompanha pão e café.</p>
+                                    <span class="price">R$ 18</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Lanches -->
+                    <div class="menu-category" id="lanches">
+                        <div class="menu-grid">
+                            <div class="menu-card">
+                                <div class="menu-card-img">
+                                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1098&q=80" alt="X-Tudo" loading="lazy">
+                                </div>
+                                <div class="menu-card-content">
+                                    <h3>X-Tudo Especial</h3>
+                                    <p>Pão, hambúrguer, queijo, presunto, bacon, ovo, alface e tomate.</p>
+                                    <span class="price">R$ 24</span>
+                                </div>
+                            </div>
+                            
+                            <div class="menu-card">
+                                <div class="menu-card-img">
+                                    <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?ixlib=rb-4.0.3&auto=format&fit=crop&w=1222&q=80" alt="Misto Quente" loading="lazy">
+                                </div>
+                                <div class="menu-card-content">
+                                    <h3>Misto Quente</h3>
+                                    <p>Pão de forma com queijo e presunto na chapa.</p>
+                                    <span class="price">R$ 12</span>
+                                </div>
+                            </div>
+                            
+                            <div class="menu-card">
+                                <div class="menu-card-img">
+                                    <img src="https://i.ytimg.com/vi/5m1Q2Fe4qxc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDysrEJmhhmIOZeJ8wTg03F9tmpqQ" alt="Pastel" loading="lazy">
+                                </div>
+                                <div class="menu-card-content">
+                                    <h3>Pastel de Carne/Queijo</h3>
+                                    <p>Pastel frito na hora, recheado com carne moída ou queijo.</p>
+                                    <span class="price">R$ 8</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bebidas -->
+                    <div class="menu-category" id="bebidas">
+                        <div class="menu-grid">
+                            <div class="menu-card">
+                                <div class="menu-card-img">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAurOFjU6_mJezEsDfN5463qmKLypXjTo1jQ&s" alt="Sucos Naturais" loading="lazy">
+                                </div>
+                                <div class="menu-card-content">
+                                    <h3>Sucos Naturais</h3>
+                                    <p>Laranja, limão, abacaxi, morango ou maracujá (copo 500ml).</p>
+                                    <span class="price">R$ 10</span>
+                                </div>
+                            </div>
+                            
+                            <div class="menu-card">
+                                <div class="menu-card-img">
+                                    <img src="https://www.estadao.com.br/resizer/v2/J72AT7Q5Y5HARFVJWKY6KALWOE.jpeg?quality=80&auth=d25c7211b66655f5b4ca57df2836a7ffd22fa65c8fef4a16ba988e3641123d1b&width=1075&height=527&focal=3441,2630" alt="Café Expresso" loading="lazy">
+                                </div>
+                                <div class="menu-card-content">
+                                    <h3>Café Expresso</h3>
+                                    <p>Café fresco coado na hora, puro ou com leite.</p>
+                                    <span class="price">R$ 5</span>
+                                </div>
+                            </div>
+                            
+                            <div class="menu-card">
+                                <div class="menu-card-img">
+                                    <img src="https://centraldebebidas.com.br/wp-content/uploads/2020/05/distribuidora_refrigerantes_SP-1.png" alt="Refrigerantes" loading="lazy">
+                                </div>
+                                <div class="menu-card-content">
+                                    <h3>Refrigerantes</h3>
+                                    <p>Coca-Cola, Guaraná, Fanta ou Sprite (lata 350ml).</p>
+                                    <span class="price">R$ 6</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="tel:+551143129359" class="btn btn-primary" style="padding: 15px 30px;">
+                        <i class="fas fa-phone"></i> Pedir por Telefone: (11) 4312-9359
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Avaliações -->
+        <section id="reviews" class="reviews-section">
+            <div class="container">
+                <h2 class="section-title">Avaliações <span class="highlight">dos Clientes</span></h2>
+                <p class="section-subtitle">O que nossos clientes dizem sobre a experiência no Empório D'angola</p>
+                
+                <div class="reviews-summary">
+                    <div class="rating-overview">
+                        <div class="rating-number">4,8</div>
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <div class="rating-count">411 avaliações</div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Empório+D'angola+Mogi+das+Cruzes" target="_blank" class="btn btn-outline">
+                            <i class="fab fa-google"></i> Avaliar no Google
+                        </a>
+                    </div>
+                    
+                    <div class="rating-details">
+                        <div class="rating-bar">
+                            <span>5 estrelas</span>
+                            <div class="bar-container">
+                                <div class="bar" style="width: 85%"></div>
+                            </div>
+                            <span>85%</span>
+                        </div>
+                        <div class="rating-bar">
+                            <span>4 estrelas</span>
+                            <div class="bar-container">
+                                <div class="bar" style="width: 12%"></div>
+                            </div>
+                            <span>12%</span>
+                        </div>
+                        <div class="rating-bar">
+                            <span>3 estrelas</span>
+                            <div class="bar-container">
+                                <div class="bar" style="width: 2%"></div>
+                            </div>
+                            <span>2%</span>
+                        </div>
+                        <div class="rating-bar">
+                            <span>2 estrelas</span>
+                            <div class="bar-container">
+                                <div class="bar" style="width: 1%"></div>
+                            </div>
+                            <span>1%</span>
+                        </div>
+                        <div class="rating-bar">
+                            <span>1 estrela</span>
+                            <div class="bar-container">
+                                <div class="bar" style="width: 0%"></div>
+                            </div>
+                            <span>0%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reviews-grid">
+                    <div class="review-card fade-in">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <div>
+                                    <h4 class="reviewer-name">Maria Santos</h4>
+                                    <div class="review-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="review-date">3 dias atrás</span>
+                        </div>
+                        <p class="review-text">"Comida caseira deliciosa! O feijão tropeiro é o melhor da região. Ambiente familiar e atendimento excelente!"</p>
+                    </div>
+                    
+                    <div class="review-card fade-in">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <div>
+                                    <h4 class="reviewer-name">João Silva</h4>
+                                    <div class="review-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="review-date">1 semana atrás</span>
+                        </div>
+                        <p class="review-text">"Preço justo e comida feita com carinho. O café da manhã colonial é uma experiência incrível!"</p>
+                    </div>
+                    
+                    <div class="review-card fade-in">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <div>
+                                    <h4 class="reviewer-name">Ana Oliveira</h4>
+                                    <div class="review-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="review-date">2 semanas atrás</span>
+                        </div>
+                        <p class="review-text">"Sou cliente fiel há anos! A comida é caseira, saborosa e o atendimento é sempre muito atencioso."</p>
+                    </div>
+                    
+                    <div class="review-card fade-in">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <div>
+                                    <h4 class="reviewer-name">Carlos Mendes</h4>
+                                    <div class="review-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="review-date">3 semanas atrás</span>
+                        </div>
+                        <p class="review-text">"Melhor custo-benefício da cidade! Comida abundante, saborosa e preço justo. Recomendo!"</p>
+                    </div>
+                    
+                    <div class="review-card fade-in">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <div>
+                                    <h4 class="reviewer-name">Fernanda Costa</h4>
+                                    <div class="review-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="review-date">1 mês atrás</span>
+                        </div>
+                        <p class="review-text">"Ambiente acolhedor e comida caseira de verdade. Perfeito para almoço em família!"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Sobre -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2 class="section-title">Sobre o <span class="highlight">Empório D'angola</span></h2>
+                <p class="section-subtitle">Conheça mais sobre nossa história, localização e horários</p>
+                
+                <div class="about-content">
+                    <div class="about-info slide-up">
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info-details">
+                                <h3>Endereço</h3>
+                                <p>R. Bom Retiro, 90 - Vila Sao Paulo, Mogi das Cruzes - SP, 08840-120</p>
+                                <span class="code">Vila Sao Paulo, Mogi das Cruzes - SP</span>
+                            </div>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="info-details">
+                                <h3>Horário de Funcionamento</h3>
+                                <div id="hoursStatus">
+                                    <div class="hours-status open">
+                                        <i class="fas fa-door-open"></i>
+                                        <span>Aberto agora</span>
+                                    </div>
+                                    <div class="hours-countdown">Fecha às 18:30</div>
+                                </div>
+                                <div class="hours-details">
+                                    <p><strong>Segunda a Sexta:</strong> 07:00 - 18:30</p>
+                                    <p><strong>Sábado:</strong> 07:00 - 16:00</p>
+                                    <p><strong>Domingo:</strong> 08:00 - 14:00</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-tag"></i>
+                            </div>
+                            <div class="info-details">
+                                <h3>Faixa de Preço</h3>
+                                <p>R$ 20–40 por pessoa</p>
+                                <span class="code">$ - Econômico</span>
+                            </div>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="info-details">
+                                <h3>Telefone</h3>
+                                <p>(11) 4312-9359</p>
+                                <a href="https://wa.me/5511999678127" target="_blank" class="whatsapp-link">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp: 11 99967-8127
+                                </a>
+                                <p style="margin-top: 10px; font-size: 0.9rem; color: var(--gray-color);">
+                                    <i class="fas fa-info-circle"></i> Aceitamos dinheiro e cartões
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <div class="info-details">
+                                <h3>Informações</h3>
+                                <div class="social-links">
+                                    <div class="service-tag entrepreneur-tag" style="margin-bottom: 10px;">
+                                        <i class="fas fa-female"></i> Empresa de empreendedoras
+                                    </div>
+                                    <p style="margin-top: 10px;">Comida caseira • Café colonial • Marmitex • Lanches rápidos • Ambiente familiar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-image slide-up">
+                        <div class="image-placeholder">
+                            <!-- IMAGEM DO AMBIENTE -->
+                            <div class="restaurant-interior">
+                                <img src="img/02.jpg" 
+                                     alt="Ambiente interno do Empório D'angola" id="restaurantInterior">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Mapa -->
+        <section id="map" class="map-section">
+            <div class="container">
+                <h2 class="section-title">Nossa <span class="highlight">Localização</span></h2>
+                <p class="section-subtitle">Venha nos visitar na Vila Sao Paulo, Mogi das Cruzes</p>
+                
+                <div class="map-container fade-in">
+                    <iframe 
+                        src="https://maps.google.com/maps?q=R.+Bom+Retiro,+90+-+Vila+Sao+Paulo,+Mogi+das+Cruzes+-+SP,+08840-120&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                        width="100%" 
+                        height="450" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo-container footer-logo-container">
+                        <div class="restaurant-logo">
+                            <img src="img/logo.jpg" alt="Empório D'angola logo">
+                        </div>
+                        <div class="logo-text">
+                            <span class="logo-name">Empório D'angola</span>
+                            <span class="logo-subtitle">Restaurante e Café</span>
+                        </div>
+                    </div>
+                    <p>Comida caseira feita com amor desde 2015</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="#home">Visão Geral</a></li>
+                        <li><a href="#menu">Cardápio</a></li>
+                        <li><a href="#reviews">Avaliações</a></li>
+                        <li><a href="#about">Sobre</a></li>
+                        <li><a href="#map">Localização</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contato & Informações</h3>
+                    <p><i class="fas fa-phone-alt"></i> (11) 4312-9359</p>
+                    <p><a style="color: var(--accent-color);" href="https://wa.me/5511999678127" target="_blank" class="whatsapp-link">
+                        <i class="fab fa-whatsapp"></i> WhatsApp: (11) 999678127
+                    </a></p>
+                    <p><i class="fas fa-map-marker-alt"></i> R. Bom Retiro, 90 - Vila Sao Paulo, Mogi das Cruzes</p>
+                    <p><i class="fas fa-clock"></i> Seg-Sex: 07:00-18:30 | Sáb: 07:00-16:00 | Dom: 08:00-14:00</p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/emporiodangola/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/emporiodangolamogi" target="_blank"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Empório D'angola Restaurante e Café. Todos os direitos reservados.</p>
+                <p>Desenvolvido com ❤️ por empreendedoras da nossa comunidade.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão flutuante do WhatsApp -->
+    <a href="https://wa.me/5511999678127?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20o%20Empório%20D'angola" 
+       class="whatsapp-float" 
+       target="_blank" 
+       aria-label="Fale conosco no WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Overlay para modais -->
+    <div class="modal-overlay"></div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
